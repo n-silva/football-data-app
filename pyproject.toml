@@ -1,0 +1,66 @@
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+target-version = ['py38', 'py39', 'py310', 'py311']
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff.lint.isort]
+section-order = [
+  "future",
+  "standard-library",
+  "third-party",
+  "first-party",
+  "local-folder",
+]
+combine-as-imports = true
+
+[tool.ruff]
+target-version = "py38"
+line-length = 110
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
+multiline-quotes = "double"
+
+[tool.ruff.lint]
+select = ["B", "C", "E", "F", "I", "Q", "T", "T20", "TCH", "W", "SIM"]
+ignore = [
+  # B018 Found useless expression. We are doing weird things that we must clean up later
+  "B018",
+  # B905 - Allow zip() without excplicit strict parameter
+  "B905",
+  # C408 - Allow use of dict() instead of dict literals
+  "C408",
+  # E501 line too long - replaced with B950
+  "E501",
+  # F405 Undefined star imports are all over settings
+  "F405",
+  # F405 Undefined star imports are all over conftest files
+  "F403",
+  # SIM108 - Forces ternary operator instead of if/else blocks. Likely to start a fight
+  "SIM108",
+  # SIM117 - Enforces inlining nested with statements, impractical with 80 line length
+  "SIM117",
+  # Q003 - Use double quotes isntead of escaping. Temporary, until we switch to double-only quotes
+  "Q003",
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 25
+
+[tool.pylint]
+max-line-length = 120
+disable = ["C0114", "C0116", "R0903"]  # Disable docstring warnings, small class warnings
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-v --tb=short"
+testpaths = ["tests"]
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]

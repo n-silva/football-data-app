@@ -1,0 +1,6 @@
+pandas
+pydantic
+ruff
+isort
+pytest
+pre-commit
