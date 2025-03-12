@@ -77,10 +77,10 @@ def extract_statistics(df: pd.DataFrame) -> list[Statistic]:
     Returns:
         list[Statistic]: List of statistics for each player.
     """
-    df['fraction_of_total_minutes_played']: float = df['minutes_played'] / 90
-    df['fraction_of_total_goals_scored']: float = df['goals_scored'] / df.groupby('match_id')[
-        'goals_scored'
-    ].transform('sum')
+    df['fraction_of_total_minutes_played'] = df['minutes_played'] / 90
+    sum_goals_sored = df.groupby('match_id')['goals_scored'].transform('sum')
+    # avoid Nan when division by zero
+    df['fraction_of_total_goals_scored'] = df['goals_scored'] / sum_goals_sored.where(sum_goals_sored != 0, 1)
 
     df['stat_id']: int = df['match_id'].astype(str) + df['player_id'].astype(str)
 

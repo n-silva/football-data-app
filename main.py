@@ -1,5 +1,6 @@
 import argparse
 import logging
+import time
 
 import pandas as pd
 
@@ -59,4 +60,8 @@ if __name__ == '__main__':
     if args.csv_split:
         csv_split = args.csv_split
 
-    main(args.file_path, csv_split=',')
+    start_time = time.time()
+    main(args.file_path, csv_split=csv_split)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    logger.debug(f'Function Execution Time: {execution_time:.4f} seconds')
